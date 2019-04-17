@@ -1,0 +1,18 @@
+﻿USE [UserNotes]
+GO
+
+/****** Object:  StoredProcedure [dbo].[DeleteNote]    Script Date: 17/4/2019 12:12:37 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[DeleteNote]
+    @NoteId int
+AS  
+BEGIN  
+	DELETE FROM [dbo].[Notes]
+	WHERE [dbo].[Notes].[Id] = @NoteId
+END  
+GO

@@ -13,6 +13,12 @@ using Microsoft.EntityFrameworkCore;
 using UserNotes.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using UserNotes.Data.Base;
+using UserNotes.Data.Repository.IRepository;
+using UserNotes.Data.Repository;
+using UserNotes.Service.IService;
+using UserNotes.Service;
+using UserNotes.Models;
 
 namespace UserNotes
 {
@@ -35,15 +41,18 @@ namespace UserNotes
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddDefaultIdentity<User>()
+                .AddDefaultUI(UIFramework.Bootstrap4);
+
+            //DataAccess & Pipeline
+            services.Configure<HelperConnectionString>(Configuration.GetSection("ConnectionStrings"));
+            services.AddTransient<IHelperConnectionString, HelperConnectionString>();
+            services.AddTransient<INoteRepository, NoteRepository>();
+            services.AddTransient<INoteService, NoteService>();
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

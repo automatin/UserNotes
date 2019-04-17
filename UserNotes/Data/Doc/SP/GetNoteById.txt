@@ -1,0 +1,23 @@
+﻿USE [UserNotes]
+GO
+
+/****** Object:  StoredProcedure [dbo].[GetNoteById]    Script Date: 17/4/2019 11:01:28 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE[dbo].[GetNoteById]  
+@NoteId int
+AS  
+BEGIN  
+select 
+	[Id],
+	[Title],
+	[Body],
+	[CreationDate],
+	[UserId] 
+from [dbo].[Notes] where Id = @NoteId;  
+END  
+GO

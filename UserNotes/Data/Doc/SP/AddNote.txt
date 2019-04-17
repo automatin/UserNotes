@@ -1,0 +1,29 @@
+﻿USE [UserNotes]
+GO
+
+/****** Object:  StoredProcedure [dbo].[AddNote]    Script Date: 17/4/2019 11:00:13 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[AddNote]
+    @UserId int,
+	@Title varchar(50),  
+    @Body varchar(MAX),
+	@CreatedDate Datetime
+AS  
+BEGIN  
+	INSERT INTO [dbo].[Notes](
+		[UserId],
+		[Title],
+		[Body],
+		[CreationDate]) 
+	VALUES(
+		@UserId,
+		@Title,
+		@Body,
+		@CreatedDate)  
+END  
+GO

@@ -1,0 +1,38 @@
+﻿Use UserNotes;
+
+USE UserNotes;
+GO
+CREATE TABLE [Users](
+	[Id] int PRIMARY KEY IDENTITY(1,1) NOT NULL,
+	[Name] varchar(50) NOT NULL,
+	[Surname] varchar(50) NOT NULL,
+);
+GO
+
+INSERT INTO [dbo].[Users]([Name],[Surname]) VALUES ('Ramiro', 'Hernandez');
+INSERT INTO [dbo].[Users]([Name],[Surname]) VALUES ('Laura', 'Algogato');
+INSERT INTO [dbo].[Users]([Name],[Surname]) VALUES ('Mariano', 'Leitita');
+INSERT INTO [dbo].[Users]([Name],[Surname]) VALUES ('Mariana', 'Manzanote');
+INSERT INTO [dbo].[Users]([Name],[Surname]) VALUES ('Eze', 'Quieloncho');
+
+USE UserNotes;
+GO
+CREATE TABLE [Notes](
+	[Id] int PRIMARY KEY IDENTITY(1,1) NOT NULL,
+	[Title] varchar(50) NOT NULL,
+	[Body] varchar(MAX) NOT NULL,
+	[CreationDate] datetime NOT NULL,
+	[UserId] int NOT NULL
+
+	CONSTRAINT FK_Notes_Users FOREIGN KEY ([UserId])
+    REFERENCES [Users]([Id])     
+    ON DELETE CASCADE    
+    ON UPDATE CASCADE    
+);
+GO
+
+INSERT INTO [dbo].[Notes]([UserId],[Title],[Body],[CreationDate]) VALUES (1,'Compras','Comprar pan, jugo y mayonesa','04-016-19 10:34:09 AM');
+INSERT INTO [dbo].[Notes]([UserId],[Title],[Body],[CreationDate]) VALUES (2,'Hacer gim','Hacer 20 sentadillas y 30 abdominales','04-016-19 10:34:09 AM');
+INSERT INTO [dbo].[Notes]([UserId],[Title],[Body],[CreationDate]) VALUES (1,'Pagar Alquiler','ir a lo de cholito y darle la bishusha','04-016-19 10:34:09 AM');
+INSERT INTO [dbo].[Notes]([UserId],[Title],[Body],[CreationDate]) VALUES (2,'NotaMental','Que fue primero, el huevo o la gallina?','04-016-19 10:34:09 AM');
+INSERT INTO [dbo].[Notes]([UserId],[Title],[Body],[CreationDate]) VALUES (1,'Recordatorio','sos pobre','04-016-19 10:34:09 AM');
